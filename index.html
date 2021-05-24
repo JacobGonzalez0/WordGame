@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="container">
-        <div class="row">
+        <div class="row justify-content-center align-content-center" style="height:100vh">
             <div class="alert alert-danger d-none" id="error">
                 
             </div>
@@ -19,7 +19,7 @@
                 <h4>
                     Used words
                 </h4>
-                <ul id="used" class="list-group  my-2">
+                <ul id="used" class="list-group  my-2" style="max-height: 30vh; overflow-y: scroll;">
         
                 </ul>
             </div>
@@ -28,7 +28,7 @@
         
     </div>
 
-    <div id="playerContainers" class="position-fixed bottom-0 d-flex w-100 flex-row justify-content-center">
+    <div id="topPlayerContainers" class="position-fixed top-0 d-flex w-100 flex-row justify-content-center">
         <div class="player p-3 mx-2 ">
             Player 1
         </div>
@@ -39,6 +39,27 @@
 
         <div class="player p-3 mx-2 ">
             Player 3
+        </div>
+
+        <div class="player p-3 mx-2 ">
+            Player 4
+        </div>
+    </div>
+    <div id="bottomPlayerContainers" class="position-fixed bottom-0 d-flex w-100 flex-row justify-content-center">
+        <div class="player p-3 mx-2 ">
+            Player 5
+        </div>
+
+        <div class="player p-3 mx-2 ">
+            Player 6
+        </div>
+
+        <div class="player p-3 mx-2 ">
+            Player 7
+        </div>
+
+        <div class="player p-3 mx-2 ">
+            Player 8
         </div>
     </div>
 </body>

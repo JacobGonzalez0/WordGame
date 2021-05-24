@@ -2,10 +2,13 @@ const word = document.getElementById("word");
 const submit = document.getElementById("submit");
 const used = document.getElementById("used");
 const error = document.getElementById("error");
-const playerContainers = document.getElementById("playerContainers")
+const topPlayerContainers = document.getElementById("topPlayerContainers")
+const bottomPlayerContainers = document.getElementById("bottomPlayerContainers")
+const playerContainers = Array.from(topPlayerContainers.children).concat(Array.from(bottomPlayerContainers.children))
+
 //hardcoded right now, 0 based
-let players = 2;
-let player = 2;
+let players = 7;
+let player = 7;
 
 let lastWord = "";
 let previousWords = [];
@@ -19,7 +22,7 @@ function check(){
         return
     }
 
-
+    //checks to see how many letters changed
     Array.from(checkWord).forEach( current => {
         Array.from(lastWord).forEach( last => {
             if(current == last){
@@ -97,11 +100,11 @@ function nextPlayer(){
     if(player > players){
         player = 0;
     }
-    Array.from(playerContainers.children).forEach( player =>{
+    playerContainers.forEach( player =>{
         player.classList.remove("bg-primary")
         player.classList.remove("fw-bold")
     })
-    playerContainers.children[player].classList.add("bg-primary")
-    playerContainers.children[player].classList.add("fw-bold")
+    playerContainers[player].classList.add("bg-primary")
+    playerContainers[player].classList.add("fw-bold")
 }
 nextPlayer()
