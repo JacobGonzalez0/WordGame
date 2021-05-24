@@ -2,6 +2,10 @@ const word = document.getElementById("word");
 const submit = document.getElementById("submit");
 const used = document.getElementById("used");
 const error = document.getElementById("error");
+const playerContainers = document.getElementById("playerContainers")
+//hardcoded right now, 0 based
+let players = 2;
+let player = 2;
 
 let lastWord = "";
 let previousWords = [];
@@ -57,8 +61,9 @@ function check(){
 
 
         lastWord = checkWord;
+        word.value = ""
         previousWords.push(checkWord);
-
+        nextPlayer()
         errorReset()
     }else{
         showError("The word is invalid")
@@ -86,3 +91,17 @@ function errorReset(){
     error.classList.add("d-none")
     error.innerHTML = '';
 }
+
+function nextPlayer(){
+    player++
+    if(player > players){
+        player = 0;
+    }
+    Array.from(playerContainers.children).forEach( player =>{
+        player.classList.remove("bg-primary")
+        player.classList.remove("fw-bold")
+    })
+    playerContainers.children[player].classList.add("bg-primary")
+    playerContainers.children[player].classList.add("fw-bold")
+}
+nextPlayer()
