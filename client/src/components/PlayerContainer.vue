@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <span >
         <div v-if="bottom" class="position-fixed top-0 d-flex w-100 flex-row justify-content-between">
             <div v-if="players[0]" class="player p-3 mx-2 ">
                 {{players[0].name}}
@@ -35,7 +35,7 @@
                 {{players[7].name}}
             </div>
         </div>
-    </div>
+    </span>
   
 </template>
 

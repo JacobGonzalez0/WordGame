@@ -1,3 +1,4 @@
+ /* eslint-disable */ 
 const validWords = [
   'AA',
   'AAH',
@@ -267751,3 +267752,4 @@ const validWords = [
   'ZZZ',
   'ZZZS'
 ]
+export default validWords;

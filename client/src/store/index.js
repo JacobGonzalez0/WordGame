@@ -5,11 +5,20 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    players: []
+    players: [],
+    previousWords: [],
+    lastWord: ""
   },
   mutations: {
     addPlayer(state , name){
+      if(state.players.length == 8){
+        return;
+      }
       state.players.push(new Player(name))
+    },
+    addWord(state , word){
+      state.lastWord = word;
+      state.previousWords.push(word)
     },
     removePlayer(state , i){
       state.players.array.splice(i, 1);
