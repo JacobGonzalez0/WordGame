@@ -36,9 +36,11 @@ export default {
     msg: String,
   },
   data() {
+
     return {
       name: "",
       word: "",
+      playerSlots: []
     }
   },
   computed: {
@@ -50,7 +52,11 @@ export default {
     },
     lastWord() {
       return this.$store.state.lastWord
+    },
+    currentPlayer() {
+      return this.$store.state.currentPlayer
     }
+    
   },
   components: {
     PlayerContainer
@@ -58,9 +64,24 @@ export default {
   mounted: function(){
     this.$store.commit('addPlayer',"Player 1");
   },
+  updated: function(){
+    if(this.currentPlayer == 0){
+      document.getElementById("firstPlayer").classList.add("bg-primary")
+      document.getElementById("firstPlayer").classList.add("fw-bold")
+      document.getElementById("firstPlayer").classList.add("text-white")
+    }
+
+    let topPlayerContainers = document.getElementById("topPlayers")
+    let bottomPlayerContainers = document.getElementById("bottomPlayers")
+    this.playerSlots = Array.from(topPlayerContainers.children).concat(Array.from(bottomPlayerContainers.children))
+    
+  },
   methods: {
     addPlayer: function(){
       this.$store.commit('addPlayer',this.name);
+      
+      
+ 
     },
     check: function(){
         const used = document.getElementById("used");
@@ -105,15 +126,29 @@ export default {
                 return;
             }
 
-            
             this.$store.commit('addWord', checkWord);
+            this.$store.commit('nextPlayer');
+
+            console.log(this.currentPlayer)
+            console.log(this.playerSlots)
+            this.playerSlots.forEach( player =>{
+              player.classList.remove("bg-primary")
+              player.classList.remove("fw-bold")
+              player.classList.remove("text-white")
+            })
+
+            if(this.playerSlots[this.currentPlayer]){
+              this.playerSlots[this.currentPlayer].classList.add("bg-primary")
+              this.playerSlots[this.currentPlayer].classList.add("fw-bold")
+              this.playerSlots[this.currentPlayer].classList.add("text-white")
+            }
+            
+
             this.word = ""
-            //nextPlayer()
-            //errorReset()
         }else{
             this.$toast.error("The word is invalid")
         }
-    }
+    },
   }
 }
 

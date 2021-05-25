@@ -1,7 +1,7 @@
 <template>
     <span >
-        <div v-if="bottom" class="position-fixed top-0 d-flex w-100 flex-row justify-content-between">
-            <div v-if="players[0]" class="player p-3 mx-2 ">
+        <div v-if="bottom" id="topPlayers" class="position-fixed top-0 d-flex w-100 flex-row justify-content-between">
+            <div id="firstPlayer" v-if="players[0]" class="player p-3 mx-2 ">
                 {{players[0].name}}
             </div>
 
@@ -18,7 +18,7 @@
             </div>
         </div>
 
-        <div v-if="!bottom" class="position-fixed bottom-0 d-flex w-100 flex-row justify-content-between">
+        <div v-if="!bottom" id="bottomPlayers" class="position-fixed bottom-0 d-flex w-100 flex-row justify-content-between">
             <div v-if="players[4]" class="player p-3 mx-2 ">
                 {{players[4].name}} 
             </div>
@@ -42,16 +42,7 @@
 <script>
 export default {
   name: 'PlayerContainer',
-  props: ['players', 'bottom']
-  ,
-  data: function () {
-    return {
-      
-    }
-  },
-  beforeMount: function(){
-     
-  }
+  props: ['players', 'bottom'],
 }
 
 </script>

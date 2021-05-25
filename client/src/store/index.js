@@ -6,6 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     players: [],
+    currentPlayer: 0,
     previousWords: [],
     lastWord: ""
   },
@@ -22,6 +23,12 @@ export default new Vuex.Store({
     },
     removePlayer(state , i){
       state.players.array.splice(i, 1);
+    },
+    nextPlayer(state){
+      state.currentPlayer++
+      if(state.currentPlayer == state.players.length){
+        state.currentPlayer = 0;
+      }
     }
   },
   actions: {
