@@ -6,9 +6,6 @@
       <button @click.prevent="addPlayer"  >Add player</button>
     </div>
     <div class="row justify-content-center align-content-center" style="height:80vh">
-            <div class="alert alert-danger d-none" id="error">
-                
-            </div>
             <div class="col-6">
                 <input v-model="word" type="text" class="form-control my-2">
                 <button @click.prevent="check" class="btn btn-primary my-2" >Submit</button>
@@ -71,7 +68,7 @@ export default {
         let validChange = 0;
 
         if(!checkWord){
-            //showError("The word is invalid");
+            this.$toast.error("The word is invalid");
             return
         }
 
@@ -90,12 +87,12 @@ export default {
             let listCheck = false;
 
             if(checkWord == this.lastWord){
-                //showError("The word is matches the last word")
+                this.$toast.error("The word is matches the last word")
                 return;
             }else{
                 this.previousWords.forEach(( pWord , i) =>{
                     if(pWord == checkWord){
-                        //showError("The word was already used! Game over!")
+                        this.$toast.error("The word was already used! Game over!")
                         used.children[i].classList.add("bg-danger")
                         used.children[i].classList.add("fw-bold")
                         used.children[i].classList.add("text-white")
@@ -114,7 +111,7 @@ export default {
             //nextPlayer()
             //errorReset()
         }else{
-            //showError("The word is invalid")
+            this.$toast.error("The word is invalid")
         }
     }
   }
