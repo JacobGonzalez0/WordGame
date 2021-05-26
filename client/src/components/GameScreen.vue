@@ -1,18 +1,14 @@
 <template>
   <div class="container-fluid" >
     
-    <div>
-      <input type="text" placeholder="name" v-model="name" />
-      <button @click.prevent="addPlayer"  >Add player</button>
-    </div>
-    <div class="row justify-content-center align-content-center" style="height:80vh">
+    <div class="row justify-content-center align-content-center mx-0 mx-sm-4 rounded gameborder game-box" >
             <div class="col-6">
-                <input v-model="word" type="text" class="form-control my-2">
+                <input v-model="word" type="text" class="form-control my-2" placeholder="Add your word">
                 <button @click.prevent="check" class="btn btn-primary my-2" >Submit</button>
                 <h4>
                     Used words
                 </h4>
-                <ul id="used" class="list-group  my-2" style="max-height: 30vh; overflow-y: scroll;">
+                <ul id="used" class="list-group used-word my-2" style="">
                   <li class="list-group-item" v-for="word in previousWords" :key="word">
                     {{word}}
                   </li>
@@ -20,6 +16,8 @@
             </div>
             
         </div>
+
+        <PlayerBox />
     <PlayerContainer v-bind:players="players" />
     <PlayerContainer bottom="true" v-bind:players="players" />
 
@@ -28,7 +26,8 @@
 
 <script>
 import PlayerContainer from './PlayerContainer';
-import validWords from '../dictionary'
+import PlayerBox from './PlayerBox';
+import validWords from '../dictionary';
 
 export default {
   name: 'GameScreen',
@@ -59,7 +58,8 @@ export default {
     
   },
   components: {
-    PlayerContainer
+    "PlayerContainer" : PlayerContainer,
+    "PlayerBox" : PlayerBox
   },
   mounted: function(){
     this.$store.commit('addPlayer',"Player 1");
@@ -77,12 +77,7 @@ export default {
     
   },
   methods: {
-    addPlayer: function(){
-      this.$store.commit('addPlayer',this.name);
-      
-      
- 
-    },
+
     check: function(){
         const used = document.getElementById("used");
         let checkWord = validWords.find(valid => valid == this.word.toUpperCase());
@@ -156,5 +151,25 @@ export default {
 </script>
 
 <style scoped>
-
+  .game-box{
+    min-height:60vh
+  }
+  .used-word{
+    max-height: 30vh; 
+    overflow-y: scroll;
+  }
+  .gameborder{
+    color:white;
+    background: linear-gradient(#00000036, #00000036) ,url(/bg-purple.png)  ;
+    border:white 3px solid;
+    box-shadow:
+    inset 0 0 5px rgb(255, 255, 255),      /* inner white */
+    inset 3px 0 3px rgb(163, 0, 255),   /* inner left magenta short */
+    inset -3px 0 3px #334fff,  /* inner right cyan short */
+    inset 3px 0 3px rgb(163, 0, 255),  /* inner left magenta broad */
+    inset -3px 0 3px #334fff, /* inner right cyan broad */
+    0 0 10px rgb(255, 255, 255),            /* outer white */
+    -3px 0 3px rgb(163, 0, 255),        /* outer left magenta */
+    3px 0 3px #234fff;         /* outer right cyan */
+  }
 </style>

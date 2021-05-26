@@ -19,7 +19,7 @@ export default new Vuex.Store({
     },
     addWord(state , word){
       state.lastWord = word;
-      state.previousWords.push(word)
+      state.previousWords.unshift(word)
     },
     removePlayer(state , i){
       state.players.array.splice(i, 1);
