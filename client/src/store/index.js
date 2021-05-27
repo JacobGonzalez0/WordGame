@@ -21,6 +21,9 @@ export default new Vuex.Store({
     lastWord: ""
   },
   mutations: {
+    setState (state, newState ){
+      Object.assign(state, newState)
+    },
     resetState (state) {
       // Merge rather than replace so we don't lose observers
       // https://github.com/vuejs/vuex/issues/1118

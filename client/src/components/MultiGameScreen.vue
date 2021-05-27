@@ -29,6 +29,9 @@
 import PlayerContainer from './PlayerContainer';
 import PlayerBox from './PlayerBox';
 import validWords from '../dictionary';
+import { io } from "socket.io-client";
+
+const socket = io("ws://localhost:3000");
 
 export default {
   name: 'MultiGameScreen',
@@ -40,7 +43,8 @@ export default {
     return {
       name: "",
       word: "",
-      playerSlots: []
+      playerSlots: [],
+      gameId: null
     }
   },
   computed: {
@@ -65,6 +69,27 @@ export default {
   mounted: function(){
     //reset the game state and start grabbing from socket connection
     this.$store.commit('resetState')
+    let gameId = this.$route.params.pathMatch
+    this.gameId = gameId;
+
+    socket.on("connect", () => {
+      console.log(socket.id);
+
+      
+      socket.emit("startGame", gameId, (response) => {
+
+        console.log(response); // ok
+        if(response.newGame){
+          console.log("New Game")
+        }else{
+          this.$store.commit('setState', response.state)
+        }
+      });
+
+
+
+
+    });
 
   },
   updated: function(){
@@ -124,7 +149,19 @@ export default {
                 return;
             }
 
-            this.$store.commit('addWord', checkWord);
+            
+            socket.emit("addWord", checkWord, (response) =>{
+              console.log(response)
+              if(response.confirm){
+                this.$store.commit('addWord', {
+                  word: checkWord,
+                  id: this.gameId
+                });
+              }else{
+                this.$toast.error(response.error)
+              }
+            });
+
             this.$store.commit('nextPlayer');
 
             console.log(this.currentPlayer)
