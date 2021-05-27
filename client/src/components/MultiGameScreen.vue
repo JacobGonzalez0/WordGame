@@ -2,6 +2,7 @@
   <div class="container-fluid" >
     
     <div class="row justify-content-center align-content-center mx-0 mx-sm-4 rounded gameborder game-box" >
+            <h3 class="text-white">Multiplayer</h3>
             <div class="col-6">
                 <input v-model="word" type="text" class="form-control my-2" placeholder="Add your word">
                 <button @click.prevent="check" class="btn btn-primary my-2" >Submit</button>
@@ -30,7 +31,7 @@ import PlayerBox from './PlayerBox';
 import validWords from '../dictionary';
 
 export default {
-  name: 'GameScreen',
+  name: 'MultiGameScreen',
   props: {
     msg: String,
   },
@@ -62,7 +63,9 @@ export default {
     "PlayerBox" : PlayerBox
   },
   mounted: function(){
-    this.$store.commit('addPlayer',"Player 1");
+    //reset the game state and start grabbing from socket connection
+    this.$store.commit('resetState')
+
   },
   updated: function(){
     if(this.currentPlayer == 0){

@@ -3,6 +3,16 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
+const getDefaultState = () => {
+  return {
+    players: [],
+    currentPlayer: 0,
+    previousWords: [],
+    lastWord: ""
+  }
+}
+
+
 export default new Vuex.Store({
   state: {
     players: [],
@@ -11,6 +21,11 @@ export default new Vuex.Store({
     lastWord: ""
   },
   mutations: {
+    resetState (state) {
+      // Merge rather than replace so we don't lose observers
+      // https://github.com/vuejs/vuex/issues/1118
+      Object.assign(state, getDefaultState())
+    },
     addPlayer(state , name){
       if(state.players.length == 8){
         return;

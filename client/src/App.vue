@@ -1,18 +1,15 @@
 <template>
   <div id="app" >
     <img src="/Logo.png" class="logo p-2 my-2" />
-    <GameScreen/>
+     <router-view>
+     </router-view>
   </div>
 </template>
 
 <script>
-import GameScreen from './components/GameScreen.vue'
 
 export default {
-  name: 'App',
-  components: {
-    'GameScreen': GameScreen
-  }
+  name: 'App'
 }
 </script>
 
