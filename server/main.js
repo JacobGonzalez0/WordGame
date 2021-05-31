@@ -37,6 +37,24 @@ io.on("connection", socket => {
 
     })
 
+    socket.on("addPlayer", (data, callback)=>{
+        if(games.get(id).players.length == 7){
+            callback({
+                confirm: false,
+                error: "Max players is 8!"
+            })
+            return;
+        }
+
+        games.get(id).players.push(new Player(data.name))
+
+        socket.emit("newPlayer")
+        callback({
+            confirm: true,
+        })
+        
+    })
+
     socket.on("addWord", (data , callback)=>{
         let lastWord = games.get(id).lastWord;
         let previousWords = games.get(id).previousWords;
@@ -125,3 +143,11 @@ const newGameState = {
 console.log("listening on port 3000")
 
 httpServer.listen(3000);
+
+class Player{
+    name
+    constructor(name){
+      this.name = name;
+    }
+  
+  }
